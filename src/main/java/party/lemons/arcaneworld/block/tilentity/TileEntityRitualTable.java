@@ -85,13 +85,17 @@ public class TileEntityRitualTable extends TileEntity implements ITickable
                 setStacks(usedStacks);
 
                 //Take from tile entity inventory
+                invslots:
                 for(int i = 0; i < getInventory().getSlots(); i++)
                 {
-                    Ingredient ingredient = ritual.getRequiredItems().get(i);
-                    if(ingredient != Ingredient.EMPTY)
+                    ItemStack itemInSlot = getInventory().getStackInSlot(i);
+		            for (Ingredient ingredient : ritual.getRequiredItems())
                     {
-                        int size = ingredient.getMatchingStacks()[0].getCount();
-                        getInventory().getStackInSlot(i).shrink(size);
+                        if (ingredient != Ingredient.EMPTY && ingredient.apply(itemInSlot))
+                        {
+                            itemInSlot.shrink(ingredient.getMatchingStacks()[0].getCount());
+                            continue invslots;
+                        }
                     }
                 }
 
