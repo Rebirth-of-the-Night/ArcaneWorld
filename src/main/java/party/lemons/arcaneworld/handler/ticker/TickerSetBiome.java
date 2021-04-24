@@ -19,14 +19,12 @@ import party.lemons.lemonlib.ticker.ITicker;
  */
 public class TickerSetBiome implements ITicker
 {
-	private World world;
 	private Biome biome;
 	private BlockPos pos;
 	private int radius, step, tick, dim;
 
 	public TickerSetBiome(World world, Biome biome, BlockPos pos, int radius)
 	{
-		this.world = world;
 		this.biome = biome;
 		this.pos = pos;
 		this.radius = radius;

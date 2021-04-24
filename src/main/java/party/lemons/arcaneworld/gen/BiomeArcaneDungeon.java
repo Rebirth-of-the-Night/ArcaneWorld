@@ -2,7 +2,6 @@ package party.lemons.arcaneworld.gen;
 
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeVoid;
 import net.minecraft.world.biome.BiomeVoidDecorator;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;

@@ -29,13 +29,13 @@ public class DungeonRoomProcessor implements ITemplateProcessor
     @Override
     public Template.BlockInfo processBlock(World world, BlockPos pos, Template.BlockInfo blockInfo)
     {
-        if(blockInfo.blockState.getBlock() == Blocks.STRUCTURE_BLOCK)
+        if (blockInfo.blockState.getBlock() == Blocks.STRUCTURE_BLOCK)
         {
             switch (blockInfo.tileentityData.getString("metadata"))
             {
                 case "random_entity":
                     List<SpawnListEntry> spawns =  world.getBiome(pos).getSpawnableList(EnumCreatureType.MONSTER);
-                    if(!spawns.isEmpty())
+                    if (!spawns.isEmpty())
                     {
                         SpawnListEntry entry = (SpawnListEntry) WeightedRandom.getRandomItem(world.rand, spawns);
 
@@ -50,7 +50,7 @@ public class DungeonRoomProcessor implements ITemplateProcessor
                             e.printStackTrace();
                         }
 
-                        if(entity != null)
+                        if (entity != null)
                         {
                             entity.setPosition(pos.getX() + 0.5F, pos.getY() + 0.5F, pos.getZ() + 0.5F);
                             entity.enablePersistence();

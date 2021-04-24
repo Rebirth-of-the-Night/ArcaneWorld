@@ -3,7 +3,6 @@ package party.lemons.arcaneworld.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.util.ResourceLocation;
 import party.lemons.lemonlib.item.IItemModel;
 
 /**

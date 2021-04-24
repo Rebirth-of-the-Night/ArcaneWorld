@@ -1,13 +1,10 @@
 package party.lemons.arcaneworld.gen.dungeon.dimension;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import party.lemons.arcaneworld.util.capabilities.RitualCoordinate;
 import party.lemons.arcaneworld.util.capabilities.RitualCoordinateProvider;
 
 /**
@@ -24,16 +21,16 @@ public class TeleporterDungeonReturn extends Teleporter
     @Override
     public void placeEntity(World world, Entity entity, float yaw)
     {
-        if(world.isRemote)
+        if (world.isRemote)
             return;
 
-        if(!(entity.hasCapability(RitualCoordinateProvider.RITUAL_COORDINATE_CAPABILITY, null)))
+        if (!(entity.hasCapability(RitualCoordinateProvider.RITUAL_COORDINATE_CAPABILITY, null)))
             return;
 
 
         BlockPos ritualPos = entity.getCapability(RitualCoordinateProvider.RITUAL_COORDINATE_CAPABILITY, null).getPos();
         BlockPos returnPos = world.getTopSolidOrLiquidBlock(ritualPos);
-//        if(entity instanceof EntityPlayer)
+//        if (entity instanceof EntityPlayer)
 //        {
 //            EntityPlayer player = (EntityPlayer) entity;
 //            boolean hasBed = true;

@@ -2,7 +2,6 @@ package party.lemons.arcaneworld.proxy;
 
 import net.minecraft.client.audio.MusicTicker;
 import net.minecraftforge.client.EnumHelperClient;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -15,7 +14,6 @@ import party.lemons.arcaneworld.entity.model.RenderRift;
 import party.lemons.arcaneworld.handler.ArcaneWorldSounds;
 import party.lemons.arcaneworld.util.capabilities.IRitualCoordinate;
 import party.lemons.arcaneworld.util.capabilities.RitualCoordinate;
-import party.lemons.arcaneworld.util.capabilities.RitualCoordinateHandler;
 import party.lemons.arcaneworld.util.capabilities.RitualCoordinateStorage;
 
 /**
@@ -41,6 +39,6 @@ public class ClientProxy implements IProxy
 
     @Override
     public void capabilityInit() {
-        CapabilityManager.INSTANCE.register(IRitualCoordinate.class, new RitualCoordinateStorage(), RitualCoordinate.class);
+        CapabilityManager.INSTANCE.register(IRitualCoordinate.class, new RitualCoordinateStorage(), () -> new RitualCoordinate());
     }
 }

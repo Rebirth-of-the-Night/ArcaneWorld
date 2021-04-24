@@ -23,7 +23,6 @@ public class GuiRitual extends GuiContainer
 {
 	public static final ResourceLocation RITUAL_BG = new ResourceLocation(ArcaneWorld.MODID, "textures/gui/ritual.png");
 	private final InventoryPlayer inventoryPlayer;
-	private final ItemStackHandler ritualInventory;
 	private GuiButtonExt castButton;
 	private BlockPos blockPos;
 
@@ -32,7 +31,6 @@ public class GuiRitual extends GuiContainer
 		super(new ContainerRitual(playerInv, inventory, Minecraft.getMinecraft().player));
 
 		this.inventoryPlayer = playerInv;
-		this.ritualInventory = inventory;
 		this.ySize = 133;
 
 		this.blockPos = pos;

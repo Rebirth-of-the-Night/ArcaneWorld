@@ -42,7 +42,7 @@ public class TickerDungeon implements ITicker
 		if(age % 3 == 0)
         {
             boolean generated = false;
-            while(!generated)
+            while (!generated)
             {
                 generated = generator.generateRoom(x, y);
                 x++;

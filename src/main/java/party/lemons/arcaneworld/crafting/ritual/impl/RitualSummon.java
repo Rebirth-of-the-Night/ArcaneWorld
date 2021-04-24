@@ -29,7 +29,7 @@ public class RitualSummon extends Ritual
     {
         try {
             Entity mob = entity.getConstructor(World.class).newInstance(world);
-            if(mob instanceof EntityLiving)
+            if (mob instanceof EntityLiving)
                 ((EntityLiving)mob).onInitialSpawn(world.getDifficultyForLocation(pos), null);
             mob.setPosition(pos.getX() + 0.5F, pos.getY() + mob.height, pos.getZ() + 0.5F);
             world.spawnEntity(mob);

@@ -22,7 +22,7 @@ public class ItemGlowingChorusFruit extends ItemFood implements IItemModel
 
     protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player)
     {
-       if(!worldIn.isRemote && !player.isRiding() && !player.isBeingRidden())
+       if (!worldIn.isRemote && !player.isRiding() && !player.isBeingRidden())
        {
            player.changeDimension(1);
        }

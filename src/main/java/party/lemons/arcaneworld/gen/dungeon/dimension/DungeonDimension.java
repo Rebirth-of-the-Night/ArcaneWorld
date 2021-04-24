@@ -1,7 +1,6 @@
 package party.lemons.arcaneworld.gen.dungeon.dimension;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.init.Blocks;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemBlock;
@@ -39,13 +38,13 @@ public class DungeonDimension
 
     private static void cancelIfInDim(World world, Event event)
     {
-        if(isInDim(world))
+        if (isInDim(world))
             event.setCanceled(true);
     }
 
     private static void denyIfInDim(World world, Event event)
     {
-        if(isInDim(world))
+        if (isInDim(world))
             event.setResult(Event.Result.DENY);
     }
 
@@ -64,29 +63,29 @@ public class DungeonDimension
         {
             World world = event.getEntity().world;
 
-            if(isInDim(world))
+            if (isInDim(world))
             {
-                if(event.getEntity().getTags().contains("arena_entity"))
+                if (event.getEntity().getTags().contains("arena_entity"))
                 {
                     BlockPos pos = event.getEntity().getPosition();
-                    while(world.isAirBlock(pos))
+                    while (world.isAirBlock(pos))
                     {
                         pos = pos.down();
                     }
 
                     BlockPos startPos = pos.up(3);
 
-                    for(int x = -1; x < 4; x++)
+                    for (int x = -1; x < 4; x++)
                     {
-                        for(int z = -1; z < 3; z++)
+                        for (int z = -1; z < 3; z++)
                         {
                             world.setBlockState(startPos.down(x).west(z), Blocks.OBSIDIAN.getDefaultState());
                         }
                     }
 
-                    for(int x = 0; x < 3; x++)
+                    for (int x = 0; x < 3; x++)
                     {
-                        for(int z = 0; z < 2; z++)
+                        for (int z = 0; z < 2; z++)
                         {
                             world.setBlockState(startPos.down(x).west(z), ArcaneWorldBlocks.RETURN_PORTAL.getDefaultState());
                         }
@@ -97,6 +96,7 @@ public class DungeonDimension
             }
         }
 
+        @SuppressWarnings("deprecation")
         @SubscribeEvent
         public static void onPlaceBlock(BlockEvent.PlaceEvent event)
         {
@@ -112,14 +112,14 @@ public class DungeonDimension
         @SubscribeEvent
         public static void onExplode(ExplosionEvent.Detonate event)
         {
-            if(isInDim(event.getWorld()))
+            if (isInDim(event.getWorld()))
                 event.getAffectedBlocks().clear();
         }
 
         @SubscribeEvent
         public static void onMobGriefing(EntityMobGriefingEvent event)
         {
-            if(event.getEntity() != null)
+            if (event.getEntity() != null)
             {
                 denyIfInDim(event.getEntity().world, event);
             }
@@ -134,10 +134,10 @@ public class DungeonDimension
         @SubscribeEvent
         public static void onUseItem(PlayerInteractEvent.RightClickItem event)
         {
-            if(isInDim(event.getWorld()))
+            if (isInDim(event.getWorld()))
             {
                 ItemStack stack = event.getItemStack();
-                if(stack.getItem() instanceof ItemBlock)
+                if (stack.getItem() instanceof ItemBlock)
                     event.setCanceled(true);
             }
         }
@@ -155,17 +155,17 @@ public class DungeonDimension
         @SubscribeEvent
         public static void onDrawBlockHighlight(DrawBlockHighlightEvent event)
         {
-            if(!isInDim(event.getPlayer().world))
+            if (!isInDim(event.getPlayer().world))
                 return;
 
             event.setCanceled(true);
-            if(event.getTarget().getBlockPos() != null)
+            if (event.getTarget().getBlockPos() != null)
             {
                 World world = event.getPlayer().world;
                 BlockPos pos = event.getTarget().getBlockPos();
                 IBlockState state = world.getBlockState(pos);
 
-                if(state.getBlock().hasTileEntity(state) || (world.getTileEntity(pos) instanceof IInventory))
+                if (state.getBlock().hasTileEntity(state) || (world.getTileEntity(pos) instanceof IInventory))
                     event.setCanceled(false);
             }
         }

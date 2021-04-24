@@ -37,7 +37,7 @@ public class ItemFangWand extends ItemModel
 
 			BlockPos p = new BlockPos(pX, pY, pZ);
 			IBlockState state = worldIn.getBlockState(p);
-			if(state.getBlock().isFullBlock(state))
+			if(state.isFullBlock())
 			{
 				if(worldIn.isAirBlock(p.up()))
 				{

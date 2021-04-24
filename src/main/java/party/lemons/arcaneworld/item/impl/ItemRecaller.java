@@ -39,9 +39,9 @@ public class ItemRecaller extends Item
     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
         ItemStack stack = player.getHeldItem(hand);
-        if(getPosition(stack) != null)
+        if (getPosition(stack) != null)
         {
-            if(getDimension(stack) != Integer.MAX_VALUE)
+            if (getDimension(stack) != Integer.MAX_VALUE)
             {
                 recall(player, world, stack);
                 return EnumActionResult.SUCCESS;
@@ -60,7 +60,7 @@ public class ItemRecaller extends Item
     {
         ItemStack stack = player.getHeldItem(hand);
         //TODO Duplicated code
-        if(getPosition(stack) != null)
+        if (getPosition(stack) != null)
         {
             if (getDimension(stack) != Integer.MAX_VALUE)
             {
@@ -74,7 +74,7 @@ public class ItemRecaller extends Item
     @SideOnly(Side.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn)
     {
-        if(getPosition(stack) != null && getDimension(stack) == worldIn.provider.getDimension())
+        if (getPosition(stack) != null && getDimension(stack) == worldIn.provider.getDimension())
         {
             BlockPos pos = getPosition(stack);
             tooltip.add(TextFormatting.GOLD + "X: " + pos.getX());
@@ -85,7 +85,7 @@ public class ItemRecaller extends Item
 
     public void recall(EntityPlayer player, World world, ItemStack stack)
     {
-        if(world.isRemote || getDimension(stack) != world.provider.getDimension())
+        if (world.isRemote || getDimension(stack) != world.provider.getDimension())
             return;
 
         BlockPos pos = getPosition(stack);
@@ -126,7 +126,7 @@ public class ItemRecaller extends Item
 
     public static void setPosition(ItemStack stack, World world, BlockPos pos)
     {
-        if(world.isRemote)
+        if (world.isRemote)
             return;
 
         NBTTagCompound tags;
@@ -160,7 +160,7 @@ public class ItemRecaller extends Item
             ModelBakery.registerItemVariants(ArcaneWorldItems.RECALLER, recaller_off, recaller_on);
             ModelLoader.setCustomMeshDefinition(ArcaneWorldItems.RECALLER, s ->
             {
-                if(s.hasTagCompound() && s.getTagCompound().hasKey("position"))
+                if (s.hasTagCompound() && s.getTagCompound().hasKey("position"))
                     return recaller_on;
 
                 return recaller_off;

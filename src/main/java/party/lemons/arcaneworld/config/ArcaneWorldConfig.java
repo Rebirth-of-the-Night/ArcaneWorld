@@ -40,10 +40,10 @@ public class ArcaneWorldConfig
         public ConfigOreGeneration SAPPHIRE_GENERATION = new ConfigOreGeneration(0, 80, 5, 5);
 
         @Config.Name("Amethyst Generation")
-        public  ConfigOreGeneration AMETHYST_GENERATION = new ConfigOreGeneration(0, 80, 8, 15);
+        public ConfigOreGeneration AMETHYST_GENERATION = new ConfigOreGeneration(0, 80, 8, 15);
 
         @Config.Name("Amethyst Generation (Nether)")
-        public  ConfigOreGeneration AMETHYST_GENERATION_NETHER = new ConfigOreGeneration(0, 128, 5, 5);
+        public ConfigOreGeneration AMETHYST_GENERATION_NETHER = new ConfigOreGeneration(0, 128, 5, 5);
     }
 
     public static class ConfigEntity

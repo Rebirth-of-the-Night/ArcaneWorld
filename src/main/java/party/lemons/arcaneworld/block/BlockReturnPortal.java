@@ -7,7 +7,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -50,10 +49,10 @@ public class BlockReturnPortal extends BlockPortal implements IItemModel
 
     public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entity)
     {
-        if(worldIn.provider.getDimension() != ArcaneWorldConfig.DUNGEONS.DIM_ID)
+        if (worldIn.provider.getDimension() != ArcaneWorldConfig.DUNGEONS.DIM_ID)
             return;
 
-        if(!worldIn.isRemote && entity instanceof EntityPlayer)
+        if (!worldIn.isRemote && entity instanceof EntityPlayer)
         {
             entity.timeUntilPortal = entity.getPortalCooldown();
             int returnDim = entity.getCapability(RitualCoordinateProvider.RITUAL_COORDINATE_CAPABILITY,null).getDim();

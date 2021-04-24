@@ -1,19 +1,21 @@
 buildscript {
     repositories {
-        jcenter()
-        maven { url = "http://files.minecraftforge.net/maven" }
+        mavenCentral()
+        maven { url = 'https://jitpack.io' }
+        maven { url = 'https://maven.minecraftforge.net' }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath('com.github.DStrand1:ForgeGradle:FG_2.3-SNAPSHOT') {
+            changing = true
+        }
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
 //Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 
-
-version = "${mc_version}-0.0.11"
-group = "party.lemons"
-archivesBaseName = "arcaneworld"
+version = '1.12.2-0.0.14'
+group = 'party.lemons'
+archivesBaseName = 'arcaneworld'
 
 sourceCompatibility = targetCompatibility = '1.8'
 compileJava {
@@ -21,24 +23,24 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12.2-14.23.5.2835"
-    runDir = "run"
-    mappings = "stable_39"
+    version = '1.12.2-14.23.5.2847'
+    runDir = 'run'
+    mappings = 'stable_39'
 }
 
 repositories {
-    maven { url 'http://lemons.party/maven' }
+    maven { url 'https://www.cursemaven.com' }
     maven {
         // location of the maven that hosts JEI files
-        name = "Progwml6 maven"
-        url = "http://dvs1.progwml6.com/files/maven"
+        name = 'Progwml6 maven'
+        url = 'https://dvs1.progwml6.com/files/maven'
     }
     maven {
         // location of a maven mirror for JEI files, as a fallback
-        name = "ModMaven"
-        url = "modmaven.k-4u.nl"
+        name = 'ModMaven'
+        url = 'modmaven.k-4u.nl'
     }
-    maven { url 'http://maven.blamejared.com/' }
+    maven { url 'https://maven.blamejared.com/' }
 }
 
 configurations {
@@ -47,15 +49,15 @@ configurations {
 }
 
 dependencies {
-    deobfCompile "mezz.jei:jei_${mc_version}:${jei_version}"
-    deobfCompile "CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.9.6"
-    deobfProvided "party.lemons.lemonlib:lemonlib-1.12.2:1.3.0"
+    deobfCompile 'mezz.jei:jei_1.12.2:4.16.1.302'
+    deobfCompile 'CraftTweaker2:CraftTweaker2-MC1120-Main:1.12-4.1.20.641'
+    deobfProvided 'curse.maven:lemonlib-306926:2639879'
 }
 
 processResources {
     // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+    inputs.property 'version', project.version
+    inputs.property 'mcversion', project.minecraft.version
 
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
@@ -79,7 +81,7 @@ jar {
 
     manifest {
         attributes([
-                'Maven-Artifact': "${project.group}:${project.archivesBaseName}:${project.version}",
+                'Maven-Artifact': '${project.group}:${project.archivesBaseName}:${project.version}',
                 'Timestamp'     : System.currentTimeMillis()
         ])
     }

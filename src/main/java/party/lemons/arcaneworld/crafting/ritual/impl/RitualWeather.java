@@ -30,7 +30,7 @@ public class RitualWeather extends Ritual
         int weatherTime = (1000 + (ws.rand.nextInt(600)) * 20);
         WorldInfo worldinfo = ws.getWorldInfo();
 
-        if(!type.raining)
+        if (!type.raining)
         {
             worldinfo.setCleanWeatherTime(weatherTime);
             worldinfo.setRainTime(0);

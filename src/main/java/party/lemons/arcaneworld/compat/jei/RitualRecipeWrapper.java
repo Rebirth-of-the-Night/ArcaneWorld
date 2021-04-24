@@ -2,6 +2,7 @@ package party.lemons.arcaneworld.compat.jei;
 
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
@@ -39,9 +40,9 @@ public class RitualRecipeWrapper implements IRecipeWrapper
         int length = Minecraft.getMinecraft().fontRenderer.getStringWidth(str);
         int height = Minecraft.getMinecraft().fontRenderer.FONT_HEIGHT;
         ArrayList<String> list = new ArrayList<>();
-        if(mouseX >= 2 && mouseX <= 2 + length)
+        if (mouseX >= 2 && mouseX <= 2 + length)
         {
-            if(mouseY >= -2 && mouseY <= -2 + height)
+            if (mouseY >= -2 && mouseY <= -2 + height)
                 list.add(TextFormatting.DARK_GRAY + ritual.getRegistryName().toString());
         }
 
@@ -59,11 +60,11 @@ public class RitualRecipeWrapper implements IRecipeWrapper
     @Override
     public void getIngredients(IIngredients iIngredients)
     {
-        iIngredients.setInputLists(ItemStack.class,ingreds);
+        iIngredients.setInputLists(VanillaTypes.ITEM, ingreds);
 
-        if(ritual instanceof RitualCreateItem)
+        if (ritual instanceof RitualCreateItem)
         {
-            iIngredients.setOutput(ItemStack.class, ((RitualCreateItem) ritual).getItemstack());
+            iIngredients.setOutput(VanillaTypes.ITEM, ((RitualCreateItem) ritual).getItemstack());
         }
     }
 }

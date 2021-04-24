@@ -3,20 +3,14 @@ package party.lemons.arcaneworld.item;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.registries.IForgeRegistry;
 import party.lemons.arcaneworld.ArcaneWorld;
 import party.lemons.arcaneworld.crafting.ArcaneWorldTab;
 import party.lemons.arcaneworld.item.impl.*;
-import party.lemons.arcaneworld.util.Pair;
 import party.lemons.lemonlib.item.ItemRegistry;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Sam on 30/08/2018.

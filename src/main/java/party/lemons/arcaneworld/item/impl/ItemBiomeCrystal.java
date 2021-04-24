@@ -153,9 +153,9 @@ public class ItemBiomeCrystal extends ItemModel
         {
             items.add(new ItemStack(this));
 
-            for(Biome biome : ForgeRegistries.BIOMES.getValuesCollection())
+            for (Biome biome : ForgeRegistries.BIOMES.getValuesCollection())
             {
-                if(!biome.isMutation())
+                if (!biome.isMutation())
                 {
                     ItemStack biomeStack = new ItemStack(this);
                     this.setBiome(biomeStack, biome);

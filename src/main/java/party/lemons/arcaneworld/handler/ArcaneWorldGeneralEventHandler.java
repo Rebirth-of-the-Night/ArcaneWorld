@@ -4,7 +4,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.AbstractIllager;
 import net.minecraft.entity.monster.EntityEvoker;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.WorldServer;
@@ -28,15 +27,15 @@ public final class ArcaneWorldGeneralEventHandler {
     @SubscribeEvent
     public static void onEntityDrop(LivingDropsEvent event)
     {
-        if(ArcaneWorldConfig.ENTITIES.EVOKER_SPAWN.enabled && event.getEntity() instanceof EntityEvoker)
+        if (ArcaneWorldConfig.ENTITIES.EVOKER_SPAWN.enabled && event.getEntity() instanceof EntityEvoker)
         {
             event.getDrops().removeIf(e -> e.getItem().getItem() == Items.TOTEM_OF_UNDYING && event.getEntity().world.rand.nextInt(100) < 95);
         }
 
-        if(event.getEntity() instanceof AbstractIllager)
+        if (event.getEntity() instanceof AbstractIllager)
         {
             Entity e = event.getEntity();
-            if(e.world.rand.nextInt(100) < ArcaneWorldConfig.ENTITIES.SCROLL_CHANCE)
+            if (e.world.rand.nextInt(100) < ArcaneWorldConfig.ENTITIES.SCROLL_CHANCE)
             {
                 EntityItem item = new EntityItem(e.world, e.posX, e.posY, e.posZ, ArcaneWorldUtil.getRandomRitualScrollForDrop(e.world.rand));
                 event.getDrops().add(item);
@@ -47,14 +46,14 @@ public final class ArcaneWorldGeneralEventHandler {
     @SubscribeEvent
     public static void onEntityTick(TickEvent.PlayerTickEvent event)
     {
-        if(event.player.world.provider.getDimension() == DungeonDimension.TYPE.getId())
+        if (event.player.world.provider.getDimension() == DungeonDimension.TYPE.getId())
         {
-            if(event.player.posY < 10)
+            if (event.player.posY < 10)
             {
                 event.player.fallDistance = 0;
                 event.player.sendStatusMessage(new TextComponentString("You experienced a bug in Arcane World, please report this on the Curse page!"), false);
 
-                if(!event.player.world.isRemote)
+                if (!event.player.world.isRemote)
                 {
                     int returnDim = event.player.getCapability(RitualCoordinateProvider.RITUAL_COORDINATE_CAPABILITY,null).getDim();
                     event.player.changeDimension(returnDim, new TeleporterDungeonReturn((WorldServer) event.player.world));

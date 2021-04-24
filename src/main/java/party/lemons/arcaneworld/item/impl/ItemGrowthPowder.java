@@ -22,12 +22,12 @@ public class ItemGrowthPowder extends ItemModel
         boolean isRegularSheep = target.getClass() == EntitySheep.class;    //If we should handle the entity as a regular sheep
         World world = target.world;
 
-        if(target instanceof EntitySheep)   //Only deal with sheep
+        if (target instanceof EntitySheep)   //Only deal with sheep
         {
             EntitySheep sheep = (EntitySheep) target;
             boolean canGrow;
 
-            if(!world.isRemote)
+            if (!world.isRemote)
             {
                 if (isRegularSheep) //If it's a regular sheep, turn the sheep into an overgrown sheep
                 {
@@ -51,7 +51,7 @@ public class ItemGrowthPowder extends ItemModel
                 //If the sheep can grow
                 canGrow = ((EntityOvergrownSheep)sheep).getGrowth() < EntityOvergrownSheep.MAX_GROWTH;
 
-                if(canGrow) //Grow the sheep
+                if (canGrow) //Grow the sheep
                 {
                     stack.shrink(1);
                     sheep.setSheared(false);
@@ -62,7 +62,7 @@ public class ItemGrowthPowder extends ItemModel
             else    //if we're on the client
             {
                 //If we're a regular sheep or the sheep can grow, spawn particles
-                if(isRegularSheep || ((EntityOvergrownSheep)sheep).getGrowth() < EntityOvergrownSheep.MAX_GROWTH)
+                if (isRegularSheep || ((EntityOvergrownSheep)sheep).getGrowth() < EntityOvergrownSheep.MAX_GROWTH)
                 {
                     Random rand = world.rand;
                     double posX = sheep.posX;

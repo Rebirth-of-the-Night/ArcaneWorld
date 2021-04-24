@@ -60,7 +60,7 @@ public class EntityOvergrownSheep extends EntitySheep
      */
     public void setSheared(boolean sheared)
     {
-        if(sheared)
+        if (sheared)
             shrink();
         else
             grow();
@@ -71,7 +71,7 @@ public class EntityOvergrownSheep extends EntitySheep
      */
     public void grow()
     {
-        if(!world.isRemote)
+        if (!world.isRemote)
         {
             setGrowth(getGrowth() + GROWTH_STEP);
         }
@@ -82,7 +82,7 @@ public class EntityOvergrownSheep extends EntitySheep
      */
     public void shrink()
     {
-        if(!world.isRemote)
+        if (!world.isRemote)
         {
             setGrowth(getGrowth() - GROWTH_STEP);
         }

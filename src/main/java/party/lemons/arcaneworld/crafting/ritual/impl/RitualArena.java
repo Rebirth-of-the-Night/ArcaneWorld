@@ -16,7 +16,6 @@ import party.lemons.arcaneworld.gen.dungeon.ArenaGenerator;
 import party.lemons.arcaneworld.gen.dungeon.dimension.TeleporterDungeon;
 
 import javax.annotation.Nonnull;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 /**
@@ -67,14 +66,14 @@ public class RitualArena extends Ritual
                 e.printStackTrace();
             }
 
-            if(ent != null)
+            if (ent != null)
             {
                 ent.addTag("arena_entity");
 
                 ent.setPosition(offsetPos.getX() + 16, offsetPos.up(13).getY(), offsetPos.getZ() + 16);
                 world.spawnEntity(ent);
 
-                if(ent instanceof EntityWither)
+                if (ent instanceof EntityWither)
                 {
                     ((EntityWither)ent).ignite();
                 }

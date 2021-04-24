@@ -46,7 +46,7 @@ public class DungeonSavedData extends WorldSavedData
     {
         DungeonSavedData  inst = (DungeonSavedData)world.getPerWorldStorage().getOrLoadData(DungeonSavedData.class, _NAME);
 
-        if(inst == null)
+        if (inst == null)
         {
             inst = new DungeonSavedData();
             world.getPerWorldStorage().setData(_NAME, inst);

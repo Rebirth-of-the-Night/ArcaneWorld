@@ -4,7 +4,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.IForgeRegistryModifiable;
 import net.minecraftforge.registries.RegistryBuilder;
 import party.lemons.arcaneworld.ArcaneWorld;
 
@@ -15,16 +15,17 @@ import party.lemons.arcaneworld.ArcaneWorld;
 @GameRegistry.ObjectHolder(ArcaneWorld.MODID)
 public class RitualRegistry
 {
-	public static IForgeRegistry<Ritual> REGISTRY;
+	public static IForgeRegistryModifiable<Ritual> REGISTRY;
 	public static final Ritual EMPTY = null;
 
 	@SubscribeEvent
 	public static void onCreateRegistry(RegistryEvent.NewRegistry event)
 	{
-		REGISTRY = new RegistryBuilder<Ritual>()
+		REGISTRY = (IForgeRegistryModifiable<Ritual>) new RegistryBuilder<Ritual>()
 				.setType(Ritual.class)
 				.setDefaultKey(new ResourceLocation(ArcaneWorld.MODID, "empty"))
 				.setName(new ResourceLocation(ArcaneWorld.MODID, "rituals")).allowModification()
+				.allowModification()
 				.create();
 	}
 }

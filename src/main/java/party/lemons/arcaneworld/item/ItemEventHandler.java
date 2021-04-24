@@ -22,11 +22,11 @@ public class ItemEventHandler
     @SubscribeEvent
     public static void onItemDrops(BlockEvent.HarvestDropsEvent event)
     {
-        if(event.getHarvester() == null || event.getWorld().isRemote)
+        if (event.getHarvester() == null || event.getWorld().isRemote)
             return;
 
         ItemStack stack = event.getHarvester().getHeldItemMainhand();
-        if(!event.isSilkTouching() && !stack.isEmpty() && stack.getItem() instanceof IMolten)
+        if (!event.isSilkTouching() && !stack.isEmpty() && stack.getItem() instanceof IMolten)
         {
             handleMolten(stack, event.getHarvester(), event.getPos(), event.getState(), event.getWorld(), event.getDrops());
         }
@@ -39,14 +39,14 @@ public class ItemEventHandler
         List<ItemStack> toRemove = new ArrayList<>();
         List<ItemStack> toAdd = new ArrayList<>();
 
-        for(ItemStack drop : drops)
+        for (ItemStack drop : drops)
         {
             ItemStack result = molten.getSmeltResult(drop);
-            if(!result.isEmpty())
+            if (!result.isEmpty())
             {
                 toRemove.add(drop);
 
-                for(int i = 0; i < drop.getCount(); i++)
+                for (int i = 0; i < drop.getCount(); i++)
                 {
                     toAdd.add(result.copy());
                 }

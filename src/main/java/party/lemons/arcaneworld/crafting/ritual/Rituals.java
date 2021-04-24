@@ -3,7 +3,6 @@ package party.lemons.arcaneworld.crafting.ritual;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.boss.EntityWither;
-import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;

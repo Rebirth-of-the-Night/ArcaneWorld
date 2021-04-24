@@ -25,7 +25,7 @@ public class RitualScroll extends Ritual
         ItemStack stack = items[0];
         Ritual ritual = ItemRitualScroll.getRitual(stack);
 
-        if(ritual == null || ritual instanceof RitualScroll)
+        if (ritual == null || ritual instanceof RitualScroll)
         {
             //TODO: some cool effect?
             ///Thonk

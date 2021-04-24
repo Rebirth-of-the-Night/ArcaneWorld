@@ -3,7 +3,6 @@ package party.lemons.arcaneworld.handler.client;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
@@ -11,7 +10,6 @@ import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.client.MinecraftForgeClient;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -49,14 +47,14 @@ public class ArcaneWorldClientEventHandler
     {
         event.getItemColors().registerItemColorHandler((is, i) -> {
             Biome biome = ((ItemBiomeCrystal)ArcaneWorldItems.BIOME_CRYSTAL).getBiome(is);
-            if(biome == null)
+            if (biome == null)
                 return 0xFFFFFF;
             return biome.getGrassColorAtPos(Minecraft.getMinecraft().player.getPosition());
         }, ArcaneWorldItems.BIOME_CRYSTAL);
 
         event.getItemColors().registerItemColorHandler((is, i) -> {
             List<PotionEffect> effects = ((ItemPotionOrb)ArcaneWorldItems.POTION_ORB).getPotionEffects(is);
-            if(effects.isEmpty())
+            if (effects.isEmpty())
                 return 0xFFFFFF;
             return PotionUtils.getPotionColorFromEffectList(effects);
         }, ArcaneWorldItems.POTION_ORB);
@@ -66,13 +64,13 @@ public class ArcaneWorldClientEventHandler
     {
         ItemStack stack = player.getHeldItem(hand);
 
-        if(stack.getItem() == ArcaneWorldItems.RECALLER)
+        if (stack.getItem() == ArcaneWorldItems.RECALLER)
         {
-            if(ItemRecaller.getPosition(stack) != null && ItemRecaller.getDimension(stack) != Integer.MAX_VALUE)
+            if (ItemRecaller.getPosition(stack) != null && ItemRecaller.getDimension(stack) != Integer.MAX_VALUE)
             {
                 BlockPos pos = ItemRecaller.getPosition(stack);
 
-                if(entityItem == null)
+                if (entityItem == null)
                 {
                     entityItem = new EntityItem(mc.world, 0, 0, 0, new ItemStack(ArcaneWorldItems.RECALL_EYE));
                     entityItem.setInfinitePickupDelay();
@@ -93,7 +91,7 @@ public class ArcaneWorldClientEventHandler
     @SubscribeEvent
     public static void onClientTick(TickEvent.ClientTickEvent event)
     {
-        if(entityItem != null)
+        if (entityItem != null)
             entityItem.onUpdate();
     }
 }

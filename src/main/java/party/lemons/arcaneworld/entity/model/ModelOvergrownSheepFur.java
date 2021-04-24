@@ -1,6 +1,5 @@
 package party.lemons.arcaneworld.entity.model;
 
-import net.minecraft.client.model.ModelQuadruped;
 import net.minecraft.client.model.ModelSheep1;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.entity.Entity;

@@ -20,7 +20,7 @@ public class FeatureRift extends WorldGenerator
         EntityRift rift = new EntityRift(world);
         float yPos = 0.5F + MIN_Y + rand.nextInt(world.getHeight() - MIN_Y);
 
-        if(yPos > 120)  //reroll if it's a high position, because having lower expectations is better
+        if (yPos > 120)  //reroll if it's a high position, because having lower expectations is better
             yPos = 0.5F + MIN_Y + rand.nextInt(world.getHeight() - MIN_Y);
 
         rift.setPosition(position.getX() + 0.5F, yPos, position.getZ() + 0.5F);

@@ -86,7 +86,7 @@ public class ItemPotionOrb extends ItemModel
                     {
                         AttributeModifier attributemodifier = entry.getValue();
                         AttributeModifier attributemodifier1 = new AttributeModifier(attributemodifier.getName(), potion.getAttributeModifierAmount(potioneffect.getAmplifier(), attributemodifier), attributemodifier.getOperation());
-                        list1.add(new Tuple(entry.getKey().getName(), attributemodifier1));
+                        list1.add(new Tuple<String, AttributeModifier>(entry.getKey().getName(), attributemodifier1));
                     }
                 }
 
@@ -110,11 +110,11 @@ public class ItemPotionOrb extends ItemModel
     @Override
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items)
     {
-        if(this.isInCreativeTab(tab))
+        if (this.isInCreativeTab(tab))
         {
-            for(PotionType effect : ForgeRegistries.POTION_TYPES)
+            for (PotionType effect : ForgeRegistries.POTION_TYPES)
             {
-                if(!effect.getEffects().isEmpty())
+                if (!effect.getEffects().isEmpty())
                 {
                     ItemStack stack = new ItemStack(this);
                     PotionUtils.addPotionToItemStack(stack, effect);
@@ -129,7 +129,7 @@ public class ItemPotionOrb extends ItemModel
         boolean isPlayer = entityIn instanceof EntityPlayer;
         boolean isOffhand = isPlayer ? ((EntityPlayer)entityIn).getHeldItemOffhand() == stack : itemSlot == 0;
 
-        if((isOffhand || isSelected) && entityIn instanceof EntityLivingBase)
+        if ((isOffhand || isSelected) && entityIn instanceof EntityLivingBase)
         {
             applyPotionEffects(stack, (EntityLivingBase) entityIn);
         }
@@ -142,7 +142,7 @@ public class ItemPotionOrb extends ItemModel
 
     public void applyPotionEffects(ItemStack stack, EntityLivingBase entity)
     {
-        for(PotionEffect effect : getPotionEffects(stack))
+        for (PotionEffect effect : getPotionEffects(stack))
         {
             PotionEffect addedEffect = new PotionEffect(effect.getPotion(), 3, effect.getAmplifier(), true, false);
             entity.addPotionEffect(addedEffect);
@@ -192,7 +192,7 @@ public class ItemPotionOrb extends ItemModel
             int size = effect_list.length;
 
             PotionType effect = effect_list[rand.nextInt(size)];
-            while(!isValidEffect(effect))
+            while (!isValidEffect(effect))
             {
                 effect = effect_list[rand.nextInt(size)];
             }
@@ -203,9 +203,9 @@ public class ItemPotionOrb extends ItemModel
 
         public boolean isValidEffect(PotionType effect)
         {
-            for(int i = 0; i < effects.length; i++)
+            for (int i = 0; i < effects.length; i++)
             {
-                if(effect.getEffects().get(0).getPotion() == effects[i])
+                if (effect.getEffects().get(0).getPotion() == effects[i])
                 {
                     return true;
                 }

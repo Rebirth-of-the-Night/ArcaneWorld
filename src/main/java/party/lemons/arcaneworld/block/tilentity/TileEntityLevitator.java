@@ -23,11 +23,11 @@ public class TileEntityLevitator extends TileEntity implements ITickable
     @Override
     public void update()
     {
-        if(world.getTotalWorldTime() % STEP_TIME == 0)
+        if (world.getTotalWorldTime() % STEP_TIME == 0)
         {
             IBlockState state = world.getBlockState(pos);
 
-            if(!(state.getBlock() instanceof BlockLevitator))
+            if (!(state.getBlock() instanceof BlockLevitator))
                 return;
 
             EnumFacing facing = state.getValue(BlockLevitator.FACING);
@@ -35,7 +35,7 @@ public class TileEntityLevitator extends TileEntity implements ITickable
             AxisAlignedBB bb = new AxisAlignedBB(0, 0, 0, 1, 1, 1).offset(pos.offset(facing)).expand(facing.getXOffset() * RANGE, facing.getYOffset() * RANGE, facing.getZOffset() * RANGE);
             List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, bb);
 
-            for(int i = 0; i < entities.size(); i++)
+            for (int i = 0; i < entities.size(); i++)
             {
                 Entity e = entities.get(i);
 
@@ -43,9 +43,9 @@ public class TileEntityLevitator extends TileEntity implements ITickable
                 int yCheck = facing.getYOffset() * (MathHelper.floor(e.posY) - this.pos.getY());
                 int zCheck = facing.getZOffset() * (MathHelper.floor(e.posZ) - this.pos.getZ());
 
-                for(int b = 1; b < Math.abs(xCheck + yCheck + zCheck); b++)
+                for (int b = 1; b < Math.abs(xCheck + yCheck + zCheck); b++)
                 {
-                    if(world.isBlockFullCube(this.pos.offset(facing, b)))
+                    if (world.isBlockFullCube(this.pos.offset(facing, b)))
                     {
                         return;
                     }
@@ -54,20 +54,20 @@ public class TileEntityLevitator extends TileEntity implements ITickable
                 double distance = e.getPosition().getDistance(pos.getX(), pos.getY(), pos.getZ());
                 float distanceDecay =  Math.max(0, (float) ((RANGE - distance) / (RANGE * 8)));
                 float speed = SPEED;
-                if(facing == EnumFacing.UP || facing == EnumFacing.DOWN)
+                if (facing == EnumFacing.UP || facing == EnumFacing.DOWN)
                     speed += 1;
 
                 float velX = speed * (facing.getXOffset() * distanceDecay);
                 float velY = speed * (facing.getYOffset() * distanceDecay);
                 float velZ = speed * (facing.getZOffset() * distanceDecay);
 
-                if(velX != 0)
+                if (velX != 0)
                     e.motionX += velX;
 
-                if(velY != 0)
+                if (velY != 0)
                     e.motionY += velY;
 
-                if(velZ != 0)
+                if (velZ != 0)
                     e.motionZ += velZ;
 
                 e.fallDistance = Math.max(0, e.fallDistance - 1);

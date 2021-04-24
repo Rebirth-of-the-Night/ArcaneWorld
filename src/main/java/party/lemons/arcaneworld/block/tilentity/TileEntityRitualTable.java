@@ -59,26 +59,26 @@ public class TileEntityRitualTable extends TileEntity implements ITickable
 
     public void attemptActivateRitual(EntityPlayer player)
     {
-        if(!canCast())
+        if (!canCast())
             return;
 
-        for(Ritual ritual : RitualRegistry.REGISTRY.getValuesCollection())
+        for (Ritual ritual : RitualRegistry.REGISTRY.getValuesCollection())
         {
-            if(ritual.isEmpty())
+            if (ritual.isEmpty())
                 continue;
 
             NonNullList<ItemStack> stacks = NonNullList.withSize(5, ItemStack.EMPTY);
-            for(int i = 0; i < stacks.size(); i++)
+            for (int i = 0; i < stacks.size(); i++)
                 stacks.set(i, getInventory().getStackInSlot(i));
 
-            if(ritual.matches(stacks))
+            if (ritual.matches(stacks))
             {
                 setRitual(ritual);
                 setActivator(player);
                 setState(RitualState.START_UP);
 
                 ItemStack[] usedStacks = new ItemStack[5];
-                for(int i = 0; i < 5; i++)
+                for (int i = 0; i < 5; i++)
                 {
                     usedStacks[i] = getInventory().getStackInSlot(i).copy();
                 }
@@ -86,7 +86,7 @@ public class TileEntityRitualTable extends TileEntity implements ITickable
 
                 //Take from tile entity inventory
                 invslots:
-                for(int i = 0; i < getInventory().getSlots(); i++)
+                for (int i = 0; i < getInventory().getSlots(); i++)
                 {
                     ItemStack itemInSlot = getInventory().getStackInSlot(i);
 		            for (Ingredient ingredient : ritual.getRequiredItems())
@@ -134,28 +134,9 @@ public class TileEntityRitualTable extends TileEntity implements ITickable
 				moveBookRotation(0.2F, 0.1F);
 				particlesItems();
 
-				//TODO: Refactor
-				if (stateTime == 5) {
-					addItemOut(itemsUsed[0]);
-				}
-
-				if (stateTime == 15) {
-					addItemOut(itemsUsed[1]);
-				}
-
-				if (stateTime == 25) {
-					addItemOut(itemsUsed[2]);
-				}
-
-				if (stateTime == 35) {
-					addItemOut(itemsUsed[3]);
-				}
-
-				if(stateTime == 45 ) {
-					addItemOut(itemsUsed[4]);
-				}
-
-				if(stateTime > 60) {
+				if (stateTime < 50 && ((int) stateTime) % 10 == 5) {
+					addItemOut(itemsUsed[((int) (stateTime - 5)) / 10]);
+				} else if (stateTime > 60) {
 					setState(RitualState.FINISH);
 					particlesActivate();
 					if(!world.isRemote) {
@@ -210,7 +191,7 @@ public class TileEntityRitualTable extends TileEntity implements ITickable
 		this.pageFlipPrev = this.pageFlip;
 		float f = (this.flipT - this.pageFlip) * 0.4F;
 		float f3 = 0.2F;
-		f = MathHelper.clamp(f, -0.2F, 0.2F);
+		f = MathHelper.clamp(f, -f3, f3);
 		this.flipA += (f - this.flipA) * 0.9F;
 		this.pageFlip += this.flipA;
 	}
@@ -323,6 +304,7 @@ public class TileEntityRitualTable extends TileEntity implements ITickable
 	}
 
 	@Nullable
+	@SuppressWarnings("unchecked")
 	@Override
 	public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing)
 	{
@@ -378,7 +360,7 @@ public class TileEntityRitualTable extends TileEntity implements ITickable
 
 	public boolean canCast()
     {
-        if(getState() == TileEntityRitualTable.RitualState.NONE)
+        if (getState() == TileEntityRitualTable.RitualState.NONE)
         {
             for (Ritual ritual : RitualRegistry.REGISTRY.getValuesCollection())
             {

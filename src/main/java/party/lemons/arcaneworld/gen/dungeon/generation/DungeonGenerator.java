@@ -39,9 +39,9 @@ public class DungeonGenerator
         this.height =  MIN_HEIGHT + random.nextInt(MAX_HEIGHT - MIN_HEIGHT + 1);
 
         directions = new RoomDirection[width][height];
-        for(int i = 0; i < width; i++)
+        for (int i = 0; i < width; i++)
         {
-            for(int j = 0; j < height; j++)
+            for (int j = 0; j < height; j++)
             {
                 directions[i][j] = new RoomDirection();
             }
@@ -57,7 +57,7 @@ public class DungeonGenerator
     public boolean generateRoom(int x, int y)
     {
         RoomDirection direction = directions[x][y];
-        if(!direction.isSealed())
+        if (!direction.isSealed())
         {
             BlockPos generatePos = origin.add(x * ROOM_WIDTH, 0, y * ROOM_WIDTH);
             Rotation rotation = direction.getRotation();
@@ -76,12 +76,14 @@ public class DungeonGenerator
                 case COUNTERCLOCKWISE_90:
                     offsetZ = 12;
                     break;
+                default:
+                    break;
             }
 
             PlacementSettings settings = new PlacementSettings().setRotation(direction.getRotation()).setMirror(direction.getMirror());
             ResourceLocation layout;
 
-            if(x == 0 && y == 0)
+            if (x == 0 && y == 0)
             {
                 switch (direction.getShape())
                 {
@@ -105,7 +107,7 @@ public class DungeonGenerator
                         break;
                 }
             }
-            else if(x == width - 1 && y == height -1)
+            else if (x == width - 1 && y == height -1)
             {
                 switch (direction.getShape())
                 {
@@ -147,13 +149,13 @@ public class DungeonGenerator
         int x = 0;
         int z = 0;
         boolean finished = false;
-        while(!finished)
+        while (!finished)
         {
             RoomDirection currentRoom = directions[x][z];
-            if(z != height - 1)
+            if (z != height - 1)
             {
                 Direction moveDirection = random.nextBoolean() ? Direction.EAST : Direction.WEST;
-                if(!(x + moveDirection.getX() > 0 && x + moveDirection.getX() < width))
+                if (!(x + moveDirection.getX() > 0 && x + moveDirection.getX() < width))
                 {
                    moveDirection = Direction.SOUTH;
                 }
@@ -164,7 +166,7 @@ public class DungeonGenerator
             }
             else
             {
-                if(x != width - 1)
+                if (x != width - 1)
                 {
                     currentRoom.withDirection(Direction.EAST, true);
                     directions[x +1][z].withDirection(Direction.WEST, true);
@@ -178,7 +180,7 @@ public class DungeonGenerator
             }
         }
 
-        for(int i = 0; i < 40; i++)
+        for (int i = 0; i < 40; i++)
         {
             int mutateX =  random.nextInt(width);
             int mutateZ =  random.nextInt(height);
@@ -186,15 +188,15 @@ public class DungeonGenerator
             RoomDirection direction = directions[mutateX][mutateZ];
             Direction mutateDir = Direction.random();
 
-            if(direction.isSealed())
+            if (direction.isSealed())
                 continue;
-            if(mutateX == 0 && mutateDir.getX() < 0)
+            if (mutateX == 0 && mutateDir.getX() < 0)
                 continue;
-            if(mutateX == width - 1 && mutateDir.getX() > 0)
+            if (mutateX == width - 1 && mutateDir.getX() > 0)
                 continue;
-            if(mutateZ == 0 && mutateDir.getY() < 0)
+            if (mutateZ == 0 && mutateDir.getY() < 0)
                 continue;
-            if(mutateZ == height - 1 && mutateDir.getY() > 0)
+            if (mutateZ == height - 1 && mutateDir.getY() > 0)
                 continue;
             Direction moveDirection = mutateDir;
 
@@ -206,7 +208,7 @@ public class DungeonGenerator
     public ResourceLocation getRoomLayout(RoomDirection direction)
     {
         String directory = direction.getDirectory();
-        if(!cachedTemplates.containsKey(directory))
+        if (!cachedTemplates.containsKey(directory))
         {
             List<ResourceLocation> locations = new ArrayList<>();
             switch (directory)
@@ -238,7 +240,7 @@ public class DungeonGenerator
 
                 for (File files : templates)
                 {
-                    if(!files.isDirectory())
+                    if (!files.isDirectory())
                     {
                         String name = files.getName().substring(0, files.getName().lastIndexOf("."));
                         locations.add(new ResourceLocation(ArcaneWorld.MODID, "dungeon/" + directory + "/" + name));
@@ -258,7 +260,7 @@ public class DungeonGenerator
 
     private void loadTemplates(List<ResourceLocation> locations, String directory, int size)
     {
-        for(int i = 1; i < size + 1; i++)
+        for (int i = 1; i < size + 1; i++)
         {
             locations.add((new ResourceLocation(ArcaneWorld.MODID, "dungeon/" + directory + "/" + directory + "_" + i)));
         }

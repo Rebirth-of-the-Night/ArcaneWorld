@@ -32,7 +32,7 @@ public class ItemRitualScroll extends ItemModel
     public static void setRitual(ItemStack stack, Ritual ritual)
     {
         NBTTagCompound tags;
-        if(stack.hasTagCompound())
+        if (stack.hasTagCompound())
         {
             tags = stack.getTagCompound();
         }
@@ -48,7 +48,7 @@ public class ItemRitualScroll extends ItemModel
 
     public static Ritual getRitual(ItemStack stack)
     {
-        if(stack.hasTagCompound() && stack.getTagCompound().hasKey("ritual"))
+        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("ritual"))
         {
             return RitualRegistry.REGISTRY.getValue(new ResourceLocation(stack.getTagCompound().getString("ritual")));
         }
@@ -68,9 +68,9 @@ public class ItemRitualScroll extends ItemModel
     {
         if (this.isInCreativeTab(tab))
         {
-            for(Ritual ritual : RitualRegistry.REGISTRY.getValuesCollection())
+            for (Ritual ritual : RitualRegistry.REGISTRY.getValuesCollection())
             {
-                if(!ritual.isEmpty() && !(ritual instanceof RitualScroll))
+                if (!ritual.isEmpty() && !(ritual instanceof RitualScroll))
                 {
                     ItemStack stack = new ItemStack(this);
                     setRitual(stack, ritual);

@@ -6,7 +6,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.items.IItemHandler;
 import party.lemons.arcaneworld.ArcaneWorld;
 import party.lemons.arcaneworld.crafting.ritual.Ritual;
@@ -18,7 +17,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.Field;
 import java.util.Collection;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -78,7 +76,7 @@ public class ArcaneWorldUtil
             {
                 if (itemstack.getItem() == stack.getItem())
                 {
-                    if(itemstack.getCount() <= stack.getCount())
+                    if (itemstack.getCount() <= stack.getCount())
                     {
                         int i = itemstack.getMetadata();
                         if (i == Short.MAX_VALUE || i == stack.getMetadata())
@@ -122,45 +120,4 @@ public class ArcaneWorldUtil
 
         }
     }
-
-    public static int getEntityPortalTime(Entity entity)
-    {
-        if(portalTimeField == null)
-            getPortalTimeField();
-
-        try
-        {
-            return portalTimeField.getInt(entity);
-
-        } catch (IllegalAccessException e)
-        {
-            e.printStackTrace();
-        }
-
-        return entity.getMaxInPortalTime();
-    }
-
-    public static void setEntityPortalTime(Entity entity, int value)
-    {
-        if(portalTimeField == null)
-            getPortalTimeField();
-
-        try
-        {
-            portalTimeField.setInt(entity, value);
-        } catch (IllegalAccessException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    private static void getPortalTimeField()
-    {
-        portalTimeField = ReflectionHelper.findField(Entity.class, "portalCounter", "field_82153_h");
-        portalTimeField.setAccessible(true);
-    }
-
-
-
-    private static Field portalTimeField = null;
 }

@@ -49,15 +49,46 @@ public class ArcaneWorldGen
 
 
     private static final WorldGenerator AMETHYST_GENERATOR = getOreGenerator(
-            ArcaneWorldBlocks.ORE_AMETHYST::getDefaultState, b -> b.getBlock() == Blocks.END_STONE,ArcaneWorldConfig.ORES.AMETHYST_GENERATION.vein_size, ArcaneWorldConfig.ORES.AMETHYST_GENERATION.vein_count, ArcaneWorldConfig.ORES.AMETHYST_GENERATION.min_height, ArcaneWorldConfig.ORES.AMETHYST_GENERATION.max_height, 1
+            ArcaneWorldBlocks.ORE_AMETHYST::getDefaultState, 
+            b -> b.getBlock() == Blocks.END_STONE, 
+            ArcaneWorldConfig.ORES.AMETHYST_GENERATION.vein_size, 
+            ArcaneWorldConfig.ORES.AMETHYST_GENERATION.vein_count, 
+            ArcaneWorldConfig.ORES.AMETHYST_GENERATION.min_height, 
+            ArcaneWorldConfig.ORES.AMETHYST_GENERATION.max_height, 
+            1
     );
 
     private static final WorldGenerator AMETHYST_GENERATOR_NETHER = getOreGenerator(
-            ArcaneWorldBlocks.ORE_AMETHYST_NETHER::getDefaultState, b -> b.getBlock() == Blocks.NETHERRACK,ArcaneWorldConfig.ORES.AMETHYST_GENERATION_NETHER.vein_size, ArcaneWorldConfig.ORES.AMETHYST_GENERATION_NETHER.vein_count, ArcaneWorldConfig.ORES.AMETHYST_GENERATION_NETHER.min_height, ArcaneWorldConfig.ORES.AMETHYST_GENERATION_NETHER.max_height, -1
+            ArcaneWorldBlocks.ORE_AMETHYST_NETHER::getDefaultState, 
+            b -> b.getBlock() == Blocks.NETHERRACK, 
+            ArcaneWorldConfig.ORES.AMETHYST_GENERATION_NETHER.vein_size, 
+            ArcaneWorldConfig.ORES.AMETHYST_GENERATION_NETHER.vein_count, 
+            ArcaneWorldConfig.ORES.AMETHYST_GENERATION_NETHER.min_height, 
+            ArcaneWorldConfig.ORES.AMETHYST_GENERATION_NETHER.max_height, 
+            -1
     );
 
-    private static final WorldGenerator RIFT_GENERATE = getRiftGenerator();
+    private static final WorldGenerator SAPPHIRE_GENERATOR = getOreGenerator(
+            ArcaneWorldBlocks.ORE_SAPPHIRE::getDefaultState, 
+            b -> b.getBlock() == Blocks.STONE, 
+            ArcaneWorldConfig.ORES.SAPPHIRE_GENERATION.vein_size, 
+            ArcaneWorldConfig.ORES.SAPPHIRE_GENERATION.vein_count, 
+            ArcaneWorldConfig.ORES.SAPPHIRE_GENERATION.min_height, 
+            ArcaneWorldConfig.ORES.SAPPHIRE_GENERATION.max_height, 
+            0
+    );
 
+    private static final WorldGenerator SAPPHIRE_GENERATOR_WET = getOreGenerator(
+            ArcaneWorldBlocks.ORE_SAPPHIRE::getDefaultState, 
+            b -> b.getBlock() == Blocks.STONE, 
+            ArcaneWorldConfig.ORES.SAPPHIRE_GENERATION.vein_size, 
+            ArcaneWorldConfig.ORES.SAPPHIRE_GENERATION.vein_count * 3, 
+            ArcaneWorldConfig.ORES.SAPPHIRE_GENERATION.min_height, 
+            ArcaneWorldConfig.ORES.SAPPHIRE_GENERATION.max_height, 
+            0
+    );
+
+    private static final WorldGenerator RIFT_GENERATOR = getRiftGenerator();
 
     @SubscribeEvent
     public static void onPopulateChunk(PopulateChunkEvent.Pre event)
@@ -67,17 +98,15 @@ public class ArcaneWorldGen
         BlockPos pos = new ChunkPos(event.getChunkX(), event.getChunkZ()).getBlock(8, 0, 8);
         Biome biome = world.getBiome(pos);
 
-        //Create sapphire generator here since it needs to check the biome.
-        //TODO: look into moving this elsewhere so doesn't need to be created more than once
-        getOreGenerator(ArcaneWorldBlocks.ORE_SAPPHIRE::getDefaultState, b -> b.getBlock() == Blocks.STONE, ArcaneWorldConfig.ORES.SAPPHIRE_GENERATION.vein_size, isWetBiome(biome) ? ArcaneWorldConfig.ORES.SAPPHIRE_GENERATION.vein_count * 3 : ArcaneWorldConfig.ORES.SAPPHIRE_GENERATION.vein_count, ArcaneWorldConfig.ORES.SAPPHIRE_GENERATION.min_height, ArcaneWorldConfig.ORES.SAPPHIRE_GENERATION.max_height, 0).generate(world, rand, pos);
+        (isWetBiome(biome) ? SAPPHIRE_GENERATOR_WET : SAPPHIRE_GENERATOR).generate(world, rand, pos);
 
         AMETHYST_GENERATOR.generate(world, rand, pos);
         AMETHYST_GENERATOR_NETHER.generate(world, rand, pos);
 
         //Generate rifts
-        if(getRiftGenerator() != null)
+        if (RIFT_GENERATOR != null)
         {
-            getRiftGenerator().generate(world, rand, pos);
+            RIFT_GENERATOR.generate(world, rand, pos);
         }
     }
 
@@ -88,7 +117,7 @@ public class ArcaneWorldGen
 
     private static WorldGenerator getRiftGenerator()
     {
-        if(ArcaneWorldConfig.RIFTS.SPAWN_CHANCE <= 0)
+        if (ArcaneWorldConfig.RIFTS.SPAWN_CHANCE <= 0)
             return null;
 
         return new FeatureChance(new FeatureRift(), ArcaneWorldConfig.RIFTS.SPAWN_CHANCE);

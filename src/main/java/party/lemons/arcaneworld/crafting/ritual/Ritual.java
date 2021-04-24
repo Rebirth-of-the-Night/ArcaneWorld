@@ -64,7 +64,7 @@ public abstract class Ritual extends IForgeRegistryEntry.Impl<Ritual>
 		inputList.removeIf(ItemStack::isEmpty);
 		ingreds.removeIf(is -> is == Ingredient.EMPTY);
 
-        if(ingreds.size() != inputList.size())
+        if (ingreds.size() != inputList.size())
             return false;
 
 		for(Ingredient ingredient : ingreds)
@@ -72,7 +72,7 @@ public abstract class Ritual extends IForgeRegistryEntry.Impl<Ritual>
 			int removeIndex = -1;
 			for(int i = 0; i < inputList.size(); i++)
 			{
-			    if(ArcaneWorldUtil.ingredientMatch(ingredient, inputList.get(i)))
+			    if (ArcaneWorldUtil.ingredientMatch(ingredient, inputList.get(i)))
                 {
                     removeIndex = i;
                     break;

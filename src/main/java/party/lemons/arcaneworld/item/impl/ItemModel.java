@@ -1,7 +1,6 @@
 package party.lemons.arcaneworld.item.impl;
 
 import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
 import party.lemons.lemonlib.item.IItemModel;
 
 /**

@@ -45,10 +45,10 @@ public class EntityRift extends Entity
         this.moveX = -bound + rand.nextInt(bound * 2);
         this.moveZ = -bound + rand.nextInt(bound * 2);
 
-        if(this.posX + this.moveX > world.getWorldBorder().maxX() || this.posX + this.moveX < world.getWorldBorder().minX())
+        if (this.posX + this.moveX > world.getWorldBorder().maxX() || this.posX + this.moveX < world.getWorldBorder().minX())
             this.moveX = 0;
 
-        if(this.posZ + this.moveZ > world.getWorldBorder().maxZ() || this.posZ + this.moveZ < world.getWorldBorder().minZ())
+        if (this.posZ + this.moveZ > world.getWorldBorder().maxZ() || this.posZ + this.moveZ < world.getWorldBorder().minZ())
             this.moveZ = 0;
 
         hasCreatedExit = false;
@@ -70,10 +70,10 @@ public class EntityRift extends Entity
             }
         }
 
-        if(world.isRemote || this.ticksExisted < 100)
+        if (world.isRemote || this.ticksExisted < 100)
             return;
 
-        if(rand.nextInt(100) == 0)
+        if (rand.nextInt(100) == 0)
         {
             this.world.playSound(null, getPosition(), ArcaneWorldSounds.RIFT_AMBIENT, SoundCategory.NEUTRAL, 0.1F, rand.nextFloat() / 2F);
         }
@@ -94,19 +94,19 @@ public class EntityRift extends Entity
 
     public void teleportEntity(Entity e)
     {
-        if(world.isRemote || e.isRiding() || e.isBeingRidden())
+        if (world.isRemote || e.isRiding() || e.isBeingRidden())
             return;
 
         world.playSound(null, e.getPosition(), ArcaneWorldSounds.RIFT_START, SoundCategory.NEUTRAL, 0.1F, 1);
-        if(e instanceof EntityPlayer)
+        if (e instanceof EntityPlayer)
         {
-            if(((EntityPlayer) e).getCooldownTracker().getCooldown(ArcaneWorldItems.RECALL_EYE, 0) != 0)
+            if (((EntityPlayer) e).getCooldownTracker().getCooldown(ArcaneWorldItems.RECALL_EYE, 0) != 0)
                 return;
             else
                 ((EntityPlayer) e).getCooldownTracker().setCooldown(ArcaneWorldItems.RECALL_EYE, 70);
         }
 
-        if(!hasCreatedExit)
+        if (!hasCreatedExit)
             createExit();
 
         BlockPos exitPos = getExitPosition();
@@ -124,17 +124,17 @@ public class EntityRift extends Entity
         BlockPos exitPos = getExitPosition();
         int radius = 5;
 
-        for(int x = exitPos.getX() - radius; x < exitPos.getX() + radius; x++)
+        for (int x = exitPos.getX() - radius; x < exitPos.getX() + radius; x++)
         {
-            for(int y = exitPos.getY() - radius; y < exitPos.getY() + radius; y++)
+            for (int y = exitPos.getY() - radius; y < exitPos.getY() + radius; y++)
             {
-                for(int z = exitPos.getZ() - radius; z < exitPos.getZ() + radius; z++)
+                for (int z = exitPos.getZ() - radius; z < exitPos.getZ() + radius; z++)
                 {
                     float squareDistance = (x-exitPos.getX())*(x-exitPos.getX()) + (y-exitPos.getY())*(y-exitPos.getY()) + (z-exitPos.getZ())*(z-exitPos.getZ());
-                    if(squareDistance <= Math.pow(radius, 2))
+                    if (squareDistance <= Math.pow(radius, 2))
                     {
                         BlockPos p = new BlockPos(x, y, z);
-                        if(world.getBlockState(p).getBlockHardness(world, p) > 0)
+                        if (world.getBlockState(p).getBlockHardness(world, p) > 0)
                             world.setBlockToAir(p);
                     }
                 }
@@ -150,7 +150,7 @@ public class EntityRift extends Entity
     @Override
     protected void readEntityFromNBT(NBTTagCompound compound)
     {
-        if(compound.getInteger("x") != 0 || compound.getInteger("z") != 0)
+        if (compound.getInteger("x") != 0 || compound.getInteger("z") != 0)
         {
             moveX = compound.getInteger("x");
             moveZ = compound.getInteger("z");

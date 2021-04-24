@@ -1,4 +1,4 @@
-package party.lemons.arcaneworld.handler.ticker.impl;
+package party.lemons.arcaneworld.handler.ticker;
 
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;

@@ -25,13 +25,13 @@ public class ArcaneWorldCrt
     @ZenMethod
     public static void removeAll()
     {
-        ((IForgeRegistryModifiable) RitualRegistry.REGISTRY).clear();
+        ((IForgeRegistryModifiable<Ritual>) RitualRegistry.REGISTRY).clear();
     }
 
     @ZenMethod
     public static void remove(String registryName)
     {
-        ((IForgeRegistryModifiable) RitualRegistry.REGISTRY).remove(new ResourceLocation(registryName));
+        ((IForgeRegistryModifiable<Ritual>) RitualRegistry.REGISTRY).remove(new ResourceLocation(registryName));
     }
 
     @ZenMethod
@@ -101,7 +101,7 @@ public class ArcaneWorldCrt
     public static Ingredient[] getIngredients(IIngredient... inputs)
     {
         Ingredient[] ingreds = new Ingredient[inputs.length];
-        for(int i = 0; i < inputs.length; i++)
+        for (int i = 0; i < inputs.length; i++)
             ingreds[i] = CraftTweakerMC.getIngredient(inputs[i]);
 
         return ingreds;

@@ -45,13 +45,13 @@ public class ArcaneWorldEntities
         ConfigEntitySpawn vindicatorSpawn = ArcaneWorldConfig.ENTITIES.VINDICATOR_SPAWN;
         ConfigEntitySpawn evokerSpawn = ArcaneWorldConfig.ENTITIES.EVOKER_SPAWN;
 
-        if(illusionerSpawn.enabled)
+        if (illusionerSpawn.enabled)
             EntityRegistry.addSpawn(EntityIllusionIllager.class, illusionerSpawn.rarity, illusionerSpawn.min, illusionerSpawn.max, EnumCreatureType.MONSTER, biomes);
 
-        if(vindicatorSpawn.enabled)
+        if (vindicatorSpawn.enabled)
             EntityRegistry.addSpawn(EntityVindicator.class, vindicatorSpawn.rarity, vindicatorSpawn.min, vindicatorSpawn.max, EnumCreatureType.MONSTER, biomes);
 
-        if(evokerSpawn.enabled)
+        if (evokerSpawn.enabled)
             EntityRegistry.addSpawn(EntityEvoker.class, evokerSpawn.rarity, evokerSpawn.min, evokerSpawn.max, EnumCreatureType.MONSTER, biomes);
     }
 }

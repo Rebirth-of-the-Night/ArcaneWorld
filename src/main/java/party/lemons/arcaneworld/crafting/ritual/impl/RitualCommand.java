@@ -24,13 +24,13 @@ public class RitualCommand extends Ritual {
 
     @Override
     public void onActivate(@Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player, ItemStack... items) {
-        if(player.world.isRemote) return;
+        if (player.world.isRemote) return;
 
         MinecraftServer server = player.world.getMinecraftServer();
         ICommandSender sender = new AdminExecute(player, pos);
 
-        for(int i = 0; i < command.length; i++)
-            if(command[i].startsWith("/")) command[i] = command[i].replaceFirst("/", "");
+        for (int i = 0; i < command.length; i++)
+            if (command[i].startsWith("/")) command[i] = command[i].replaceFirst("/", "");
 
         FunctionObject func = FunctionObject.create(server.getFunctionManager(), Arrays.asList(command));
 

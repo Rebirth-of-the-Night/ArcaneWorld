@@ -4,6 +4,7 @@ import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeCategory;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
@@ -58,22 +59,22 @@ public class RitualRecipeCategory implements IRecipeCategory<RitualRecipeWrapper
 
     @Override
     public void setRecipe(IRecipeLayout layout, RitualRecipeWrapper wrapper, IIngredients ingredients) {
-        if(!(wrapper instanceof RitualRecipeWrapper))
+        if (!(wrapper instanceof RitualRecipeWrapper))
             return;
 
-        List<List<ItemStack>> inputs = ingredients.getInputs(ItemStack.class);
-        List<List<ItemStack>> output = ingredients.getOutputs(ItemStack.class);
+        List<List<ItemStack>> inputs = ingredients.getInputs(VanillaTypes.ITEM);
+        List<List<ItemStack>> output = ingredients.getOutputs(VanillaTypes.ITEM);
 
         int in = 0;
-        for(int i = 0; i  < inputs.size(); i++) {
+        for (int i = 0; i  < inputs.size(); i++) {
             layout.getItemStacks().init(i, true,  3 + (18 * i), 6);
             layout.getItemStacks().set(i, inputs.get(i));
 
             in++;
         }
 
-        if(output.size() > 0)
-        for(int i = 0; i < output.get(0).size(); i++) {
+        if (output.size() > 0)
+        for (int i = 0; i < output.get(0).size(); i++) {
             layout.getItemStacks().init(in, false, 3 + (20 * in), 6);
             layout.getItemStacks().set(in++, output.get(0).get(i));
         }

@@ -1,13 +1,11 @@
 package party.lemons.arcaneworld.gen.dungeon.dimension;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import party.lemons.arcaneworld.gen.dungeon.ArenaGenerator;
 import party.lemons.arcaneworld.gen.dungeon.generation.DungeonGenerator;
 
 /**
@@ -26,10 +24,10 @@ public class TeleporterDungeon extends Teleporter
     @Override
     public void placeEntity(World world, Entity entity, float yaw)
     {
-        if(world.isRemote)
+        if (world.isRemote)
             return;
 
-        if(!hasGenerated)
+        if (!hasGenerated)
         {
 
             DungeonSavedData data = DungeonSavedData.getInstance(world);
