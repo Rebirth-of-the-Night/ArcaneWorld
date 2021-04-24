@@ -1,9 +1,17 @@
 package party.lemons.arcaneworld.item.impl;
 
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 import com.google.common.collect.Lists;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
+
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -22,7 +30,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Tuple;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.util.text.translation.LanguageMap;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
@@ -32,12 +40,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import party.lemons.arcaneworld.ArcaneWorld;
 import party.lemons.arcaneworld.crafting.ArcaneWorldSpamTab;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
 
 /**
  * Created by Sam on 16/10/2018.
@@ -69,14 +71,14 @@ public class ItemPotionOrb extends ItemModel
 
         if (list.isEmpty())
         {
-            String s = I18n.translateToLocal("effect.none").trim();
+            String s = LanguageMap.getInstance().translateKey("effect.none").trim();
             tooltip.add(TextFormatting.GRAY + s);
         }
         else
         {
             for (PotionEffect potioneffect : list)
             {
-                String s1 = I18n.translateToLocal(potioneffect.getEffectName()).trim();
+                String s1 = LanguageMap.getInstance().translateKey(potioneffect.getEffectName()).trim();
                 Potion potion = potioneffect.getPotion();
                 Map<IAttribute, AttributeModifier> map = potion.getAttributeModifierMap();
 
@@ -92,7 +94,7 @@ public class ItemPotionOrb extends ItemModel
 
                 if (potioneffect.getAmplifier() > 0)
                 {
-                    s1 = s1 + " " + I18n.translateToLocal("potion.potency." + potioneffect.getAmplifier()).trim();
+                    s1 = s1 + " " + LanguageMap.getInstance().translateKey("potion.potency." + potioneffect.getAmplifier()).trim();
                 }
 
                 if (potion.isBadEffect())
