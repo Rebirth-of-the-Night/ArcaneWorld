@@ -39,36 +39,24 @@ public class ItemRecaller extends Item
     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
     {
         ItemStack stack = player.getHeldItem(hand);
-        if (getPosition(stack) != null)
-        {
-            if (getDimension(stack) != Integer.MAX_VALUE)
-            {
-                recall(player, world, stack);
-                return EnumActionResult.SUCCESS;
-            }
-        }
-        else
-        {
+        if (!recallIf(player, world, stack))
             setPosition(stack, world, pos.offset(facing));
-            return EnumActionResult.SUCCESS;
-        }
 
-        return EnumActionResult.FAIL;
+        return EnumActionResult.SUCCESS;
     }
 
     public ActionResult<ItemStack> onItemRightClick(World world, EntityPlayer player, EnumHand hand)
     {
         ItemStack stack = player.getHeldItem(hand);
-        //TODO Duplicated code
-        if (getPosition(stack) != null)
-        {
-            if (getDimension(stack) != Integer.MAX_VALUE)
-            {
-                recall(player, world, stack);
-            }
-        }
+        return new ActionResult<>(recallIf(player, world, stack) ? EnumActionResult.SUCCESS : EnumActionResult.FAIL, stack);
+    }
 
-        return new ActionResult<>(EnumActionResult.SUCCESS, stack);
+    private boolean recallIf(EntityPlayer player, World world, ItemStack stack) {
+        if (getPosition(stack) != null && getDimension(stack) != Integer.MAX_VALUE) {
+            recall(player, world, stack);
+            return true;
+        }
+        return false;
     }
 
     @SideOnly(Side.CLIENT)

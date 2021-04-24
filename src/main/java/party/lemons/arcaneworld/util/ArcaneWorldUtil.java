@@ -17,7 +17,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.Collection;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -28,15 +28,9 @@ public class ArcaneWorldUtil
 {
     public static ItemStack getRandomRitualScrollForDrop(Random random)
     {
-        Collection<Ritual> list = RitualRegistry.REGISTRY.getValuesCollection().stream().filter(Ritual::canDrop).collect(Collectors.toList());
-        Ritual ritual = list.stream().skip(random.nextInt(list.size()-1)).findFirst().get();
-        while (ritual.isEmpty())
-        {
-            ritual = list.stream().skip(random.nextInt(list.size()-1)).findFirst().get();
-        }
-
+        List<Ritual> list = RitualRegistry.REGISTRY.getValuesCollection().stream().filter(Ritual::canDrop).collect(Collectors.toList());
         ItemStack stack = new ItemStack(ArcaneWorldItems.RITUAL_SCROLL);
-        ItemRitualScroll.setRitual(stack, ritual);
+        ItemRitualScroll.setRitual(stack, list.get(random.nextInt(list.size())));
 
         return stack;
     }
