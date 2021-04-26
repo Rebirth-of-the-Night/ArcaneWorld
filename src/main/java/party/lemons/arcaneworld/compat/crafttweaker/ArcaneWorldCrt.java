@@ -25,13 +25,13 @@ public class ArcaneWorldCrt
     @ZenMethod
     public static void removeAll()
     {
-        ((IForgeRegistryModifiable<Ritual>) RitualRegistry.REGISTRY).clear();
+        RitualRegistry.REGISTRY.clear();
     }
 
     @ZenMethod
     public static void remove(String registryName)
     {
-        ((IForgeRegistryModifiable<Ritual>) RitualRegistry.REGISTRY).remove(new ResourceLocation(registryName));
+        RitualRegistry.REGISTRY.remove(new ResourceLocation(registryName));
     }
 
     @ZenMethod
@@ -96,6 +96,12 @@ public class ArcaneWorldCrt
     public static void createRitualCommand(String name, String displayName, String[] command, IIngredient... inputs)
     {
         createRitual(name, displayName, new RitualCommand(command, getIngredients(inputs)));
+    }
+
+    @ZenMethod
+    public static void createRitualCT(String name, String displayName, IRitualMatcher matcher, IRitualEffect effect, IIngredient... inputs)
+    {
+        createRitual(name, displayName, new RitualCT(matcher, effect, getIngredients(inputs)));
     }
 
     public static Ingredient[] getIngredients(IIngredient... inputs)

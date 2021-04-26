@@ -1,8 +1,10 @@
 package party.lemons.arcaneworld.crafting.ritual;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -49,6 +51,19 @@ public abstract class Ritual extends IForgeRegistryEntry.Impl<Ritual>
 	public String getTranslationKey()
 	{
 		return unlocName;
+	}
+
+	/**
+	 * Extra check whether a player can actually cast this ritual.
+	 * Default behavior is as it always was; Any player can cast this ritual anywhere.
+	 *
+	 * @param world
+	 * @param pos
+	 * @param player
+	 * @return true if the player can cast the ritual, false otherwise
+	 */
+	public boolean canCast(@Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
+		return true;
 	}
 
 	public boolean matches(NonNullList<ItemStack> inputs)
