@@ -59,7 +59,7 @@ public class TileEntityRitualTable extends TileEntity implements ITickable
 
     public void attemptActivateRitual(EntityPlayer player)
     {
-        if (!canCast())
+        if (!canCast(player))
             return;
 
         for (Ritual ritual : RitualRegistry.REGISTRY.getValuesCollection())
@@ -358,7 +358,7 @@ public class TileEntityRitualTable extends TileEntity implements ITickable
 		this.itemsUsed = stacks;
 	}
 
-	public boolean canCast()
+	public boolean canCast(EntityPlayer player)
     {
         if (getState() == TileEntityRitualTable.RitualState.NONE)
         {
@@ -373,7 +373,7 @@ public class TileEntityRitualTable extends TileEntity implements ITickable
 
                 if (ritual.matches(stacks))
                 {
-                    return true;
+                    return ritual.canCast(getWorld(), getPos(), player);
                 }
             }
         }

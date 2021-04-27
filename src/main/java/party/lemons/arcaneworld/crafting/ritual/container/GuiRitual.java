@@ -82,7 +82,7 @@ public class GuiRitual extends GuiContainer
 		TileEntity te = Minecraft.getMinecraft().world.getTileEntity(blockPos);
 		if(te instanceof TileEntityRitualTable)
 		{
-            castButton.enabled = ((TileEntityRitualTable) te).canCast();
+            castButton.enabled = ((TileEntityRitualTable) te).canCast(inventoryPlayer.player);
 		}
 		else
 		    castButton.enabled = false;

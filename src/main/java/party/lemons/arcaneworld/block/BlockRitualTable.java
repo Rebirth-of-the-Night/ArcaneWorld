@@ -58,7 +58,7 @@ public class BlockRitualTable extends BlockModel
 
     private boolean doFakePlayerInteraction(FakePlayer player, TileEntityRitualTable tile, BlockPos pos, World world)
     {
-        if (tile.canCast())
+        if (tile.canCast(player))
         {
             tile.attemptActivateRitual(player);
             return true;
